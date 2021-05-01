@@ -72,22 +72,40 @@
           </li>
         </ul>
 
+        @guest
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item mr-3">
-            <a class="nav-link" href="{{ route('register') }}">
-              <i class="fas fa-user-plus"></i> Register</a>
-          </li>
-          <li class="nav-item mr-3">
-            <a class="nav-link" href="{{ route('login') }}">
-              <i class="fas fa-sign-in-alt"></i>
+            <li class="nav-item mr-3">
+              <a class="nav-link" href="{{ route('register') }}">
+                <i class="fas fa-user-plus"></i> Register</a>
+            </li>
+            <li class="nav-item mr-3">
+              <a class="nav-link" href="{{ route('login') }}">
+                <i class="fas fa-sign-in-alt"></i>
 
-              Login</a>
-          </li>
-        </ul>
+                Login</a>
+            </li>
+          </ul>
+        @endguest
+
+        @auth
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item mr-3">
+              <a class="nav-link" href="{{ route('register') }}">
+                <i class="fas fa-user-plus"></i> Profile</a>
+            </li>
+            <li class="nav-item mr-3">
+              <form method="post" action='{{ route('logout') }}'>
+                  @csrf
+                  <button style='cursor:pointer; margin-top:.3rem; background:none; border:none;font-size:1.1rem;color:rgba(255, 255, 255, 0.5);'><i class="fas fa-sign-in-alt"></i> Logout</button>
+              </form>
+            </li>
+          </ul>
+        @endauth
+
       </div>
     </div>
   </nav>
-
+  <div id="loader"></div>
 @yield('content')
 
   <!-- Footer -->

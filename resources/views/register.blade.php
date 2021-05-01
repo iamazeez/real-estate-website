@@ -1,6 +1,9 @@
 @extends('layouts.userapp')
 
 @section('content')
+
+
+
   <section id="register" class="bg-light py-5">
     <div class="container">
       <div class="row">

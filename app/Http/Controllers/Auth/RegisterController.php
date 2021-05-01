@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -24,8 +25,8 @@ class RegisterController extends Controller
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'username' => 'required',
-            'email' => 'required|email',
+            'username' => 'required|unique:users,username',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
             'password_confirmation' => 'required'
         ]);
@@ -50,6 +51,13 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'profile_image' => $fileName,
         ]);
+
+          //Login User
+          $credentials = $request->only('email', 'password');
+          if(Auth::attempt($credentials)){
+            $request->session()->regenerate();
+            return redirect()->route('home');
+          }
 
         return response()->json($data);
     }

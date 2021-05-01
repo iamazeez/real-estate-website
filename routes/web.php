@@ -24,8 +24,12 @@ use App\Http\Controllers\Wishlist\WishlistController;
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('/about',[HomeController::class,'about'])->name('about');
 
+//Logout User
+Route::post('/logout',[LogoutController::class,'logout'])->name('logout');
+
 //login
 Route::get('/login',[LoginController::class,'index'])->name('login');
+Route::post('/login',[LoginController::class,'loginUser']);
 
 //Register user
 Route::get('/register',[RegisterController::class,'index'])->name('register');
