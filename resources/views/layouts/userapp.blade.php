@@ -93,6 +93,12 @@
               <a class="nav-link" href="{{ route('register') }}">
                 <i class="fas fa-user-plus"></i> Profile</a>
             </li>
+
+            <li class="nav-item mr-3">
+                <a class="nav-link" href="{{ route('create-listing') }}">
+                  <i class="fas fa-home"></i> Sell home</a>
+              </li>
+
             <li class="nav-item mr-3">
               <form method="post" action='{{ route('logout') }}'>
                   @csrf

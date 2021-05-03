@@ -24,16 +24,11 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
           ]);
-
-
-
           $credentials = $request->only('email', 'password');
-
-          if(Auth::attempt($credentials)){
+          if(Auth::attempt($credentials,true)){
             $request->session()->regenerate();
-            return redirect('/home');
+            return response()->json(auth());
           }
-
           return response()->json(['errors' => ['loginfail' => ['Please check your email and password.']]], 401);
     }
 }

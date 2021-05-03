@@ -13,6 +13,9 @@ class HomeController extends Controller
 
     //render about page
     public function about(){
-        return view('about');
+
+        return response()->json(dd(auth()));
+
+       // return view('about');
     }
 }

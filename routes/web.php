@@ -36,3 +36,7 @@ Route::get('/register',[RegisterController::class,'index'])->name('register');
 Route::post('/register',[RegisterController::class,'registerUser']);
 //Listing
 Route::get('/feature-listing',[GuestListingController::class,'index'])->name('listings');
+
+//Create Listing
+Route::get('/create-listing',[AuthListingController::class,'index'])->name('create-listing');
+Route::post('/create-listing',[AuthListingController::class,'createListing']);

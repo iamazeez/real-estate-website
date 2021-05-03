@@ -28,7 +28,8 @@ class RegisterController extends Controller
             'username' => 'required|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
-            'password_confirmation' => 'required'
+            'password_confirmation' => 'required',
+            'profile_image' => 'image|mimes:jpeg,png,jpg',
         ]);
 
         $fileName = '';
@@ -56,7 +57,6 @@ class RegisterController extends Controller
           $credentials = $request->only('email', 'password');
           if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->route('home');
           }
 
         return response()->json($data);

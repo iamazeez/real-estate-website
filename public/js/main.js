@@ -12,8 +12,28 @@ $.ajaxSetup({
 // =============== set csrf token end ===============
 
 
+
 $(document).ready(function() {
 
+//=================Preview Image Function===============
+var imagesPreview = function(input, placeToInsertImagePreview) {
+
+    if (input.files) {
+        var filesAmount = input.files.length;
+
+        for (var i = 0; i < filesAmount; i++) {
+            var reader = new FileReader();
+
+            reader.onload = function(event) {
+                $($.parseHTML('<img>')).attr({'src': event.target.result,'width':'100px',"class": "m-2",}).css("max-width", "150px").appendTo(placeToInsertImagePreview);
+            }
+
+            reader.readAsDataURL(input.files[i]);
+        }
+    }
+
+}
+//=================Preview Image Function ends===============
 
  //=========================Register User===========================
 
@@ -55,6 +75,7 @@ $(document).ready(function() {
             })
         //-- end alert --
             console.log("successfully added data");
+            location.reload();
         },
         error : function(error){
             console.log(error)
@@ -95,7 +116,7 @@ $('#loginForm').on('submit',function(e) {
          $('#loader').hide();
       },
      success : function(data){
-
+        location.reload();
      },
      error : function(error){
          console.log(error)
@@ -107,6 +128,73 @@ $('#loginForm').on('submit',function(e) {
 
     });
 //=========================Login User End here==========================
+
+
+//=========================Create new sell listing======================
+
+$('#create-inquiry-form').on('submit',function(e) {
+    e.preventDefault();
+            $('#titleError').text('');
+            $('#descreptionError').text('');
+            $('#bedroomsError').text('');
+            $('#asking_priceError').text('');
+            $('#bathroomError').text('');
+            $('#garageError').text('');
+            $('#squarefeetError').text('');
+            $('#lot_sizeError').text('');
+            $('#imageError').text('');
+            $('#messageError').text('');
+    $.ajax({
+        type : "POST",
+        url : "/create-listing",
+        dataType : "json",
+        contentType: false,
+        cache: false,
+        processData: false,
+        data : new FormData(this),
+        beforeSend: function() {
+            $('#loader').show();
+         },
+         complete: function(){
+            $('#loader').hide();
+         },
+        success : function(data){
+            alert('ajax response');
+            console.log(data);
+        //-- start alert --
+            Swal.fire({
+                toast: true,
+               // position: 'top-end',
+                icon: 'success',
+                title: 'Data added successfully',
+                showConfirmButton: false,
+                timer: 3000
+            })
+        //-- end alert --
+            console.log("successfully added data");
+        },
+        error : function(error){
+            console.log(error);
+            $('#titleError').text(error.responseJSON.errors.title);
+            $('#descreptionError').text(error.responseJSON.errors.descreption);
+            $('#bedroomsError').text(error.responseJSON.errors.bedrooms);
+            $('#asking_priceError').text(error.responseJSON.errors.asking_price);
+            $('#bathroomError').text(error.responseJSON.errors.bathroom);
+            $('#garageError').text(error.responseJSON.errors.garage);
+            $('#squarefeetError').text(error.responseJSON.errors.squarefeet);
+            $('#lot_sizeError').text(error.responseJSON.errors.lot_size);
+            $('#imageError').text(error.responseJSON.errors.image);
+            $('#messageError').text(error.responseJSON.message);
+        }
+    });
+
+});
+
+//====================Show Multiple Images in Listing ====================
+
+$('#image').change(function(e){
+    imagesPreview(this, '#show-image');
+});
 
 
 //jQuery ENDS
