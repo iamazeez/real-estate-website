@@ -40,3 +40,6 @@ Route::get('/feature-listing',[GuestListingController::class,'index'])->name('li
 //Create Listing
 Route::get('/create-listing',[AuthListingController::class,'index'])->name('create-listing');
 Route::post('/create-listing',[AuthListingController::class,'createListing']);
+
+//Dashboard
+Route::get('/profile',[ProfileController::class,'index'])->name('profile');

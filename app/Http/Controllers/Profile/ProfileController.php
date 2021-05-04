@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Listing;
 
 class ProfileController extends Controller
 {
@@ -13,7 +14,14 @@ class ProfileController extends Controller
     }
 
     public function index(){
-        return view('dashboard');
+        $listing = auth()->user()->listing;
+        return view('dashboard',[
+            'listing' => $listing
+        ]);
+    }
+
+    public function showAllListing(Request $request){
+
     }
 
 }

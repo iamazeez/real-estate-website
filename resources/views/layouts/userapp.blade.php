@@ -90,7 +90,7 @@
         @auth
         <ul class="navbar-nav ml-auto">
             <li class="nav-item mr-3">
-              <a class="nav-link" href="{{ route('register') }}">
+              <a class="nav-link" href="{{ route('profile') }}">
                 <i class="fas fa-user-plus"></i> Profile</a>
             </li>
 

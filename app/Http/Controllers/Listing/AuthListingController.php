@@ -19,8 +19,6 @@ class AuthListingController extends Controller
 
     public function createListing(Request $request){
 
-        return response()->json($request);
-
         $request->validate([
             'title' => 'required',
             'descreption' => 'required',
@@ -36,7 +34,7 @@ class AuthListingController extends Controller
 
         $images = [];
 
-        if ($request->file('profile_image')) {
+        if ($request->file('image')) {
             foreach($request->file('image') as $imagePath){
                 $fileName = time().rand(1,100) . '.' . $imagePath->extension();
                 $imagePath->move(public_path('images/homes'), $fileName);

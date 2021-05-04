@@ -144,6 +144,10 @@ $('#create-inquiry-form').on('submit',function(e) {
             $('#lot_sizeError').text('');
             $('#imageError').text('');
             $('#messageError').text('');
+
+            var formData = new FormData(this);
+
+
     $.ajax({
         type : "POST",
         url : "/create-listing",
@@ -151,7 +155,7 @@ $('#create-inquiry-form').on('submit',function(e) {
         contentType: false,
         cache: false,
         processData: false,
-        data : new FormData(this),
+        data : formData,
         beforeSend: function() {
             $('#loader').show();
          },
@@ -195,6 +199,10 @@ $('#create-inquiry-form').on('submit',function(e) {
 $('#image').change(function(e){
     imagesPreview(this, '#show-image');
 });
+
+
+//====================Show All Listing of User in Profile
+
 
 
 //jQuery ENDS
